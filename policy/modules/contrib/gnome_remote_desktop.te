@@ -1,0 +1,80 @@
+policy_module(gnome_remote_desktop, 1.0.0)
+
+require {
+        type gnome_remote_desktop_port_t;
+	type system_dbusd_t;
+        type systemd_logind_t;
+	type xdm_t;
+	class tcp_socket { accept bind create getattr getopt listen name_bind setopt shutdown };
+	class unix_dgram_socket create;
+}
+
+########################################
+#
+# Declarations
+#
+
+type gnome_remote_desktop_t;
+type gnome_remote_desktop_exec_t;
+domain_type(gnome_remote_desktop_t)
+domain_entry_file(gnome_remote_desktop_t, gnome_remote_desktop_exec_t)
+role system_r types gnome_remote_desktop_t;
+
+permissive gnome_remote_desktop_t;
+
+type gnome_remote_desktop_var_lib_t;
+files_type(gnome_remote_desktop_var_lib_t)
+
+########################################
+#
+# gnome_remote_desktop local policy
+#
+
+optional_policy(`
+	dbus_system_domain(gnome_remote_desktop_t, gnome_remote_desktop_exec_t)
+')
+
+manage_dirs_pattern(gnome_remote_desktop_t, gnome_remote_desktop_var_lib_t, gnome_remote_desktop_var_lib_t)
+manage_files_pattern(gnome_remote_desktop_t, gnome_remote_desktop_var_lib_t, gnome_remote_desktop_var_lib_t)
+manage_lnk_files_pattern(gnome_remote_desktop_t, gnome_remote_desktop_var_lib_t, gnome_remote_desktop_var_lib_t)
+files_var_lib_filetrans(gnome_remote_desktop_t, gnome_remote_desktop_var_lib_t, { dir file lnk_file })
+
+domain_use_interactive_fds(gnome_remote_desktop_t)
+
+files_read_etc_files(gnome_remote_desktop_t)
+
+miscfiles_read_localization(gnome_remote_desktop_t)
+
+#============= gnome_remote_desktop_t ==============
+allow gnome_remote_desktop_t gnome_remote_desktop_port_t:tcp_socket name_bind;
+allow gnome_remote_desktop_t self:tcp_socket { accept bind create getattr getopt listen read setopt write };
+allow gnome_remote_desktop_t self:unix_dgram_socket { create write };
+allow system_dbusd_t gnome_remote_desktop_t:tcp_socket { read write };
+corenet_tcp_bind_generic_node(gnome_remote_desktop_t)
+dev_read_sysfs(gnome_remote_desktop_t)
+files_watch_usr_dirs(gnome_remote_desktop_t)
+fs_getattr_cgroup(gnome_remote_desktop_t)
+fs_getattr_xattr_fs(gnome_remote_desktop_t)
+init_read_state(gnome_remote_desktop_t)
+kerberos_read_config(gnome_remote_desktop_t)
+kernel_dgram_send(gnome_remote_desktop_t)
+logging_write_syslog_pid_socket(gnome_remote_desktop_t)
+miscfiles_read_certs(gnome_remote_desktop_t)
+systemd_login_list_pid_dirs(gnome_remote_desktop_t)
+systemd_login_read_pid_files(gnome_remote_desktop_t)
+systemd_read_logind_sessions_files(gnome_remote_desktop_t)
+
+#============= xdm_t ==============
+optional_policy(`
+	require {
+		type xdm_t;
+		}
+
+	allow xdm_t gnome_remote_desktop_t:tcp_socket { getattr getopt read setopt shutdown write };
+
+	dev_rw_dma_dev(xdm_t)
+	xserver_dbus_chat_xdm(gnome_remote_desktop_t)
+	xserver_dbus_chat_xdm(xdm_t)
+	xserver_read_xdm_state(gnome_remote_desktop_t)
+
+')
