@@ -41,7 +41,6 @@ files_watch_usr_dirs(gnome_remote_desktop_t)
 fs_getattr_cgroup(gnome_remote_desktop_t)
 fs_getattr_xattr_fs(gnome_remote_desktop_t)
 init_read_state(gnome_remote_desktop_t)
-kerberos_read_config(gnome_remote_desktop_t)
 kernel_dgram_send(gnome_remote_desktop_t)
 logging_write_syslog_pid_socket(gnome_remote_desktop_t)
 
@@ -58,6 +57,10 @@ optional_policy(`
 
 optional_policy(`
 	dbus_system_domain(gnome_remote_desktop_t, gnome_remote_desktop_exec_t)
+')
+
+optional_policy(`
+	kerberos_read_config(gnome_remote_desktop_t)
 ')
 
 #============= xdm_t ==============
