@@ -83,7 +83,6 @@ optional_policy(`
 
 	dev_rw_dma_dev(xdm_t)
 	xserver_dbus_chat_xdm(gnome_remote_desktop_t)
-	xserver_dbus_chat_xdm(xdm_t)
 	xserver_read_xdm_state(gnome_remote_desktop_t)
 
 ')
