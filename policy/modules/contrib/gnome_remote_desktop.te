@@ -26,14 +26,14 @@ manage_files_pattern(gnome_remote_desktop_t, gnome_remote_desktop_var_lib_t, gno
 manage_lnk_files_pattern(gnome_remote_desktop_t, gnome_remote_desktop_var_lib_t, gnome_remote_desktop_var_lib_t)
 files_var_lib_filetrans(gnome_remote_desktop_t, gnome_remote_desktop_var_lib_t, { dir file lnk_file })
 
-domain_use_interactive_fds(gnome_remote_desktop_t)
-
-files_read_etc_files(gnome_remote_desktop_t)
-
 #============= gnome_remote_desktop_t ==============
 corenet_tcp_bind_gnome_remote_desktop_port(gnome_remote_desktop_t)
 allow gnome_remote_desktop_t self:tcp_socket create_stream_socket_perms;
 allow gnome_remote_desktop_t self:unix_dgram_socket create_socket_perms;
+
+domain_use_interactive_fds(gnome_remote_desktop_t)
+
+files_read_etc_files(gnome_remote_desktop_t)
 
 kernel_dgram_send(gnome_remote_desktop_t)
 
