@@ -1860,10 +1860,6 @@ tunable_policy(`selinuxuser_direct_dri_enabled',`
 
 #============= xdm_t ==============
 optional_policy(`
-	require {
-		type gnome_remote_desktop_t;
-		}
-
-	allow xdm_t gnome_remote_desktop_t:tcp_socket { getattr getopt read setopt shutdown write };
+	gnome_remote_desktop_rw_tcp_sockets(xdm_t)
 	dev_rw_dma_dev(xdm_t)
 ')

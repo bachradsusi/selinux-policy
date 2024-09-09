@@ -153,3 +153,26 @@ interface(`gnome_remote_desktop_admin',`
 		systemd_read_fifo_file_passwd_run($1)
 	')
 ')
+
+## <summary>
+##	Read and write to TCP socket
+## </summary>
+## <desc>
+##	<p>
+##	Allow the specified domain to read and write to
+##  gnome_remote_desktop_port_t TCP socket
+##	</p>
+## </desc>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`gnome_remote_desktop_rw_tcp_sockets', `
+	gen_require(`
+		type gnome_remote_desktop_t;
+	')
+
+	allow $1 gnome_remote_desktop_t:tcp_socket rw_socket_perms;
+')
