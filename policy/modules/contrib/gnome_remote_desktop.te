@@ -1,9 +1,5 @@
 policy_module(gnome_remote_desktop, 1.0.0)
 
-gen_require(`
-	type gnome_remote_desktop_port_t;
-')
-
 ########################################
 #
 # Declarations
@@ -35,9 +31,9 @@ domain_use_interactive_fds(gnome_remote_desktop_t)
 files_read_etc_files(gnome_remote_desktop_t)
 
 #============= gnome_remote_desktop_t ==============
-allow gnome_remote_desktop_t gnome_remote_desktop_port_t:tcp_socket name_bind;
+corenet_tcp_bind_gnome_remote_desktop_port(gnome_remote_desktop_t)
 allow gnome_remote_desktop_t self:tcp_socket create_stream_socket_perms;
-allow gnome_remote_desktop_t self:unix_dgram_socket { create write };
+allow gnome_remote_desktop_t self:unix_dgram_socket create_socket_perms;
 
 kernel_dgram_send(gnome_remote_desktop_t)
 
