@@ -43,13 +43,17 @@ files_watch_usr_dirs(gnome_remote_desktop_t)
 fs_getattr_cgroup(gnome_remote_desktop_t)
 fs_getattr_xattr_fs(gnome_remote_desktop_t)
 init_read_state(gnome_remote_desktop_t)
-logging_write_syslog_pid_socket(gnome_remote_desktop_t)
 
 optional_policy(`
-	systemd_login_list_pid_dirs(gnome_remote_desktop_t)
-	systemd_login_read_pid_files(gnome_remote_desktop_t)
-	systemd_read_logind_sessions_files(gnome_remote_desktop_t)
+	dbus_system_domain(gnome_remote_desktop_t, gnome_remote_desktop_exec_t)
+')
 
+optional_policy(`
+	kerberos_read_config(gnome_remote_desktop_t)
+')
+
+optional_policy(`
+	logging_write_syslog_pid_socket(gnome_remote_desktop_t)
 ')
 
 optional_policy(`
@@ -58,9 +62,12 @@ optional_policy(`
 ')
 
 optional_policy(`
-	dbus_system_domain(gnome_remote_desktop_t, gnome_remote_desktop_exec_t)
+	systemd_login_list_pid_dirs(gnome_remote_desktop_t)
+	systemd_login_read_pid_files(gnome_remote_desktop_t)
+	systemd_read_logind_sessions_files(gnome_remote_desktop_t)
 ')
 
 optional_policy(`
-	kerberos_read_config(gnome_remote_desktop_t)
+	xserver_dbus_chat_xdm(gnome_remote_desktop_t)
+	xserver_read_xdm_state(gnome_remote_desktop_t)
 ')

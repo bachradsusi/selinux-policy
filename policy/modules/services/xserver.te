@@ -1865,9 +1865,5 @@ optional_policy(`
 		}
 
 	allow xdm_t gnome_remote_desktop_t:tcp_socket { getattr getopt read setopt shutdown write };
-
 	dev_rw_dma_dev(xdm_t)
-	xserver_dbus_chat_xdm(gnome_remote_desktop_t)
-	xserver_read_xdm_state(gnome_remote_desktop_t)
-
 ')
