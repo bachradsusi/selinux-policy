@@ -46,10 +46,6 @@ init_read_state(gnome_remote_desktop_t)
 logging_write_syslog_pid_socket(gnome_remote_desktop_t)
 
 optional_policy(`
-	gen_require(`
-		type system_dbusd_t;
-	')
-	allow system_dbusd_t gnome_remote_desktop_t:tcp_socket { read write };
 	systemd_login_list_pid_dirs(gnome_remote_desktop_t)
 	systemd_login_read_pid_files(gnome_remote_desktop_t)
 	systemd_read_logind_sessions_files(gnome_remote_desktop_t)

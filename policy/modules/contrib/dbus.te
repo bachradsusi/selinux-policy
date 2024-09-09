@@ -410,3 +410,10 @@ allow session_bus_type dbusd_unconfined:dbus send_msg;
 
 kernel_stream_connect(session_bus_type)
 systemd_login_read_pid_files(session_bus_type)
+
+optional_policy(`
+	gen_require(`
+		type gnome_remote_desktop_t;
+	')
+	allow system_dbusd_t gnome_remote_desktop_t:tcp_socket { read write };
+')
