@@ -1672,8 +1672,9 @@ optional_policy(`
 
 optional_policy(`
 	# bash tries to access a block device in the initrd
-	kernel_dontaudit_getattr_unlabeled_blk_files(initrc_t)
-
+	ifdef(`dontaudit_unlabeled',`
+		kernel_dontaudit_getattr_unlabeled_blk_files(initrc_t)
+	')
 	# for a bug in rm
 	files_dontaudit_write_all_pids(initrc_t)
 
