@@ -146,11 +146,9 @@ manage_fifo_files_pattern(mplayer_t, mplayer_tmpfs_t, mplayer_tmpfs_t)
 manage_sock_files_pattern(mplayer_t, mplayer_tmpfs_t, mplayer_tmpfs_t)
 fs_tmpfs_filetrans(mplayer_t, mplayer_tmpfs_t,{ dir file lnk_file sock_file fifo_file })
 
-ifdef(`dontaudit_unlabeled',`
-	kernel_dontaudit_list_unlabeled(mplayer_t)
-	kernel_dontaudit_getattr_unlabeled_files(mplayer_t)
-	kernel_dontaudit_read_unlabeled_files(mplayer_t)
-')
+kernel_dontaudit_list_unlabeled(mplayer_t)
+kernel_dontaudit_getattr_unlabeled_files(mplayer_t)
+kernel_dontaudit_read_unlabeled_files(mplayer_t)
 kernel_read_system_state(mplayer_t)
 kernel_read_kernel_sysctls(mplayer_t)
 

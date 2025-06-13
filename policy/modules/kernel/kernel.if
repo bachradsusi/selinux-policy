@@ -2933,7 +2933,9 @@ interface(`kernel_dontaudit_list_unlabeled',`
 		type unlabeled_t;
 	')
 
-	dontaudit $1 unlabeled_t:dir list_dir_perms;
+	tunable_policy(`dontaudit_unlabeled',`
+		dontaudit $1 unlabeled_t:dir list_dir_perms;
+	')
 ')
 
 ########################################
@@ -3025,7 +3027,9 @@ interface(`kernel_dontaudit_read_unlabeled_files',`
 		type unlabeled_t;
 	')
 
-	dontaudit $1 unlabeled_t:file { getattr read };
+	tunable_policy(`dontaudit_unlabeled',`
+		dontaudit $1 unlabeled_t:file { getattr read };
+	')
 ')
 
 ########################################

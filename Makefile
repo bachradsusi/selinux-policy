@@ -215,10 +215,6 @@ ifeq "$(UBAC)" "y"
 	M4PARAM += -D enable_ubac
 endif
 
-ifeq "$(DONTAUDIT_UNLABELED)" "y"
-	M4PARAM += -D dontaudit_unlabeled
-endif
-
 # default MLS/MCS sensitivity and category settings.
 MLS_SENS ?= 16
 MLS_CATS ?= 1024

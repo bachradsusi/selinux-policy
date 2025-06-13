@@ -1019,6 +1019,27 @@ interface(`files_dontaudit_search_non_security_dirs',`
 		attribute non_security_file_type;
 	')
 
+	tunable_policy(`dontaudit_unlabeled',`
+		dontaudit $1 non_security_file_type:dir search_dir_perms;
+	')
+')
+
+########################################
+## <summary>
+##	Do not audit attempts to search
+##	non security dirs.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain to not audit.
+##	</summary>
+## </param>
+#
+interface(`files_dontaudit_search_non_security_dirs_',`
+	gen_require(`
+		attribute non_security_file_type;
+	')
+
 	dontaudit $1 non_security_file_type:dir search_dir_perms;
 ')
 
@@ -4730,8 +4751,9 @@ interface(`files_dontaudit_search_isid_type_dirs',`
 	gen_require(`
 		type unlabeled_t;
 	')
-
-	dontaudit $1 unlabeled_t:dir search_dir_perms;
+	tunable_policy(`dontaudit_unlabeled',`
+		dontaudit $1 unlabeled_t:dir search_dir_perms;
+	')
 ')
 
 ########################################

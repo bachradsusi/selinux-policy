@@ -51,6 +51,13 @@ gen_tunable(domain_can_write_kmsg, false)
 ## </desc>
 gen_tunable(domain_can_mmap_files, false)
 
+## <desc>
+## <p>
+## Dontaudit domains to search unalebeld_t dirs.
+## </p>
+## </desc>
+gen_tunable(dontaudit_unlabeled, false)
+
 # Mark process types as domains
 attribute domain;
 attribute named_filetrans_domain;

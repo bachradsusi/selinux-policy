@@ -715,7 +715,8 @@ tunable_policy(`httpd_anon_write',`
 ')
 
 tunable_policy(`httpd_dontaudit_search_dirs',`
-    files_dontaudit_search_non_security_dirs(httpd_t)
+	# cannot nest tunable_policy intro tunable_policy, use macro without tunable_policy
+    files_dontaudit_search_non_security_dirs_(httpd_t)
 ')
 
 #
