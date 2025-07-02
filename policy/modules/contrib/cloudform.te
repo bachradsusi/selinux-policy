@@ -16,6 +16,10 @@ files_tmp_file(cloud_init_tmp_t)
 type cloud_init_unit_file_t;
 systemd_unit_file(cloud_init_unit_file_t)
 
+ifdef(`enable_mls',`
+	init_ranged_daemon_domain(cloud_init_t, cloud_init_exec_t, mls_systemhigh)
+')
+
 type cloud_var_lib_t;
 files_type(cloud_var_lib_t)
 
